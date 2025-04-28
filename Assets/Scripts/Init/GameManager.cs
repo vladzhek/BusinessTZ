@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Components;
 using Data;
@@ -147,8 +148,16 @@ namespace Init
         private void OnApplicationQuit()
         {
             SaveLoadService.PlayerProgress.ProgressDatas = _businesData.Values.ToList();
-
             SaveLoadService.SaveProgress();
+        }
+
+        private void OnApplicationFocus(bool hasFocus)
+        {
+            if (!hasFocus)
+            {
+                SaveLoadService.PlayerProgress.ProgressDatas = _businesData.Values.ToList();
+                SaveLoadService.SaveProgress();
+            }
         }
     }
 }
